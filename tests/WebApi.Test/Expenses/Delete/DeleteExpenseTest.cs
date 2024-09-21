@@ -38,8 +38,8 @@ public class DeleteExpenseTest : CashFlowClassFixture
 
     public async Task Error_Expense_Not_Found(string culture)
     {
-        var result = await DoGet(requestUri: $"{METHOD}/1000", token: _token, culture: culture);
-
+        var result = await DoDelete(requestUri: $"{METHOD}/1000", token: _token, culture: culture);
+ 
         result.StatusCode.Should().Be(HttpStatusCode.NotFound);
 
         var body = await result.Content.ReadAsStringAsync();

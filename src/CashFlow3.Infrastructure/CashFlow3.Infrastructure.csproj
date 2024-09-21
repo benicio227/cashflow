@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CashFlow3.Domain\CashFlow3.Domain.csproj" />
+    <ProjectReference Include="..\CashFlow3.Exception\CashFlow3.Exception.csproj" />
   </ItemGroup>
 
 </Project>

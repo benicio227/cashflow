@@ -47,6 +47,9 @@ public class RegisterUserUseCaseTest
 
         var useCase = CreateUseCase(request.Email);
 
+        var readRepositoryBuilder = new UserReadOnlyRepositoryBuilder();
+        readRepositoryBuilder.ExistActiveUserWithEmail(request.Email, true);
+
         var act = async () => await useCase.Execute(request);
 
         var result = await act.Should().ThrowAsync<ErrorOnValidationException>();
@@ -61,7 +64,16 @@ public class RegisterUserUseCaseTest
         var writeRepository = UserWriteOnlyRepositoryBuilder.Build();
         var passwordEncripter = new PasswordEncrypterBuilder().Build();
         var jwtTokenGenerator = JwtTokenGeneratorBuilder.Build();
-        var readRepository = new UserReadOnlyRepositoryBuilder().Build();
+        //var readRepository =  
+
+        var readRepositoryBuilder = new UserReadOnlyRepositoryBuilder();
+
+        if (!string.IsNullOrWhiteSpace(email))
+        {
+            readRepositoryBuilder.ExistActiveUserWithEmail(email, true);
+        }
+
+        var readRepository = readRepositoryBuilder.Build();
 
         return new RegisterUserUseCase(mapper, passwordEncripter, readRepository, writeRepository, unitOfWork, jwtTokenGenerator);
     }

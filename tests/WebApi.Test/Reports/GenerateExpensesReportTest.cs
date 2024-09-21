@@ -23,13 +23,15 @@ public class GenerateExpensesReportTest : CashFlowClassFixture
 
     public async Task Success_Excel()
     {
-        var result = await DoGet(requestUri: $"{METHOD}/excel?month={_expenseDate:Y}", token: _adminToken);
+        var result = await DoGet(requestUri: $"{METHOD}/excel?month={_expenseDate:yyyy-MM}", token: _adminToken);
 
         result.StatusCode.Should().Be(HttpStatusCode.OK);
 
         result.Content.Headers.ContentType.Should().NotBeNull();
         result.Content.Headers.ContentType!.MediaType.Should().Be(MediaTypeNames.Application.Octet);
-
+        
+        var content = await result.Content.ReadAsStringAsync();
+        Console.WriteLine(content);
     }
 
     [Fact]

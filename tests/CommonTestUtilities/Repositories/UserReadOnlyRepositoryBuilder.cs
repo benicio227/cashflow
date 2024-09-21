@@ -12,9 +12,9 @@ public class UserReadOnlyRepositoryBuilder
         _repository = new Mock<IUserReadOnlyRepository>();
     }
 
-    public void ExistActiveUserWithEmail(string email)
+    public void ExistActiveUserWithEmail(string email, bool exists = true)
     {
-        _repository.Setup(userReadOnly => userReadOnly.ExistActiveUserWithEmail(email)).ReturnsAsync(true);
+        _repository.Setup(userReadOnly => userReadOnly.ExistActiveUserWithEmail(email)).ReturnsAsync(exists);
     }
 
     public UserReadOnlyRepositoryBuilder GetUserByEmail(User user)
